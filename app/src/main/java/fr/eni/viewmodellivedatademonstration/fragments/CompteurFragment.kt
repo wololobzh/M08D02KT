@@ -27,20 +27,16 @@ class CompteurFragment : Fragment() {
         //Instance de la classe de liaison(binding) permettant de mettre à jour n'importe quel élément de la vue.
         binding = DataBindingUtil.inflate<FragmentCompteurBinding>(inflater, R.layout.fragment_compteur, container, false)
 
-
         //Instance de la classe viewModel permettant de fournir toutes les infos pour la vue.
         //Si il y a une nouvelle configuration de l'affichage, le fragment sera détruit mais l'instance du viewModel persistera.
         //Cette ligne est ici la clé de compréhension de l'amelioration apportait par les viewModel.
         viewModel = ViewModelProvider(this).get(CompteurViewModel::class.java)
 
+        binding.vm = viewModel
 
-
-        //On prend des infos du view model pour les mettre dans la vue via l'instance de binding.
-        binding.tvValeur.text = viewModel.compteur.toString()
-        //On lit des actions du viewModel pour les mettre dans la vue via l'instance de binding.
         binding.btnCompteur.setOnClickListener{
             viewModel.plusUn()
-            binding.tvValeur.text = viewModel.compteur.toString()
+            binding.vm = viewModel
         }
         return binding.root
     }
